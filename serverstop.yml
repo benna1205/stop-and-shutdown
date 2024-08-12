@@ -1,0 +1,8 @@
+---
+- hosts: all 
+  become: true
+  tasks:
+     - name: shutdown ubuntu   
+       ansible.builtin.command: /sbin/shutdown -t now #it will shut down all the running servers
+       when: ansible_facts['os_family'] == "Debian" # Using when command it will only delete the debian family server
+    

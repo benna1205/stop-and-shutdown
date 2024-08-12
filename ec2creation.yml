@@ -1,0 +1,22 @@
+---
+- hosts: localhost #creating ec2 in the local host
+  connection: local #local connetion only
+  tasks:
+  - name: start an instance with a public IP address
+    amazon.aws.ec2_instance:
+      name: "{{ item.name }}"
+      key_name: "apsouth"
+      vpc_subnet_id: subnet-02b4f4dedb38c458d
+      instance_type: t2.micro 
+      security_group: default
+      exact_count: 3 
+      region: "{{item.region}}"
+      aws_access_key: "{{ec2_access_key}}"  
+      aws_secret_key: "{{ec2_secret_key}}"  
+      network:
+        assign_public_ip: true
+      image_id: "{{ item.image }}"
+    loop:
+      - { image: "ami-049f0f6f51145ff40", name: "windows", region: "ap-south-1"}
+      - { image: "ami-0a4408457f9a03be3", name: "amazon", region: "ap-south-1" }
+      - { image: "ami-0ad21ae1d0696ad58", name: "ubunut", region: "ap-south-1" }

@@ -1,0 +1,9 @@
+scp -i ~/downloads/apsouth.pem ~/downloads/apsouth.pem ubuntu@65.2.124.118:/home/ubuntu #copy the file from the local machine to server
+ssh-copy-id -f "-o IdentityFile ~/home/ubuntu/apsouth.pem" ubuntu@43.204.144.31 #copy the file to server from the localmachine
+---
+Setup Vault
+Create a password for vault
+openssl rand -base64 2048 > vault.pass
+Add your AWS credentials using the below vault command
+ansible-vault create group_vars/all/password.yml --vault-password-file vault.pass
+-------
